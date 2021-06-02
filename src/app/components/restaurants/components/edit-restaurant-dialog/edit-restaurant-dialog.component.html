@@ -1,0 +1,7 @@
+<mat-form-field class="example-full-width">
+  <mat-label>Name</mat-label>
+  <input matInput type="text" [(ngModel)]="name"/>
+</mat-form-field>
+<button mat-button [disabled]="!isNameValid(name)" (click)="submitData.emit(name)">Save</button>
+<button mat-button (click)="deleteRestaurant.emit()">Delete</button>
+<button mat-button mat-dialog-close class="full-width">Cancel</button>

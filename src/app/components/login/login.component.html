@@ -1,0 +1,8 @@
+<mat-card class="medium-width">
+  <h3>Log in</h3>
+
+  <rr-user-form (submitData)="authenticate.next($event)"
+                [options]="{withEmail: true, withPassword: true}"></rr-user-form>
+
+</mat-card>
+

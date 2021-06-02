@@ -1,0 +1,8 @@
+<h3>Edit your data</h3>
+
+<rr-user-form
+  (submitData)="submitData.next($event)"
+  [userData]="user">
+</rr-user-form>
+<button mat-button (click)="deleteUser.next($event)" class="full-width">Delete user</button>
+<button mat-button mat-dialog-close class="full-width">Cancel</button>

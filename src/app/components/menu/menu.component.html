@@ -1,0 +1,9 @@
+<nav>
+  <button role="link"
+          class="navigation-button"
+          mat-button
+          *ngFor="let routerLink of routerLinks$ | async"
+          [routerLink]=routerLink.path>
+    {{routerLink.name}}
+  </button>
+</nav>

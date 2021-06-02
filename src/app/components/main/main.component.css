@@ -1,0 +1,78 @@
+.container, mat-drawer-container {
+  height: 100%;
+}
+
+.progress-spinner {
+  position: absolute;
+  z-index: 100;
+  bottom: 0;
+  right: 0;
+  margin: 12px;
+}
+
+.log-out-button {
+  position: absolute;
+  bottom: 50px;
+}
+
+.title {
+  font-family: cursive;
+  position: absolute;
+  right: 12px;
+  font-size: 21px;
+  top: 4px;
+  pointer-events: none;
+  transition: font-size 1s;
+}
+
+.small {
+  font-size: 12px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .scale {
+    zoom: 0.7;
+  }
+}
+
+.router-wrapper {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.unauthorized-menu-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.unauthorized-menu-container.moved {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-end;
+  flex-direction: row;
+}
+
+.unauthorized-menu-container button {
+  width: 170px;
+  height: 170px;
+  font-size: 20px;
+}
+
+.unauthorized-menu-container.moved button {
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+  font-size: 10px;
+}
+
+
+.example-sidenav-content {
+  height: 100%;
+}
+
+.flex-h-center > * {
+  align-self: center;
+}

@@ -1,0 +1,27 @@
+<mat-card class="medium-width">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Edit your data">
+      <rr-user-form (submitData)="submitData.next($event)"
+                    (editData)="editData.next($event)"
+                    [options]="{
+                    withEmail:true,
+                    withName: true}"
+                    [userData]="(user$ | async)"></rr-user-form>
+    </mat-tab>
+    <mat-tab label="Change password">
+      <rr-user-form (submitData)="submitData.next($event)"
+                    (editData)="editData.next($event)"
+                    [options]="{
+                      withPasswordConfirmation: true,
+                      withPassword: true}"
+                    [userData]="(user$ | async)"></rr-user-form>
+    </mat-tab>
+    <mat-tab label="Delete account">
+      <div class="delete-button-wrapper">
+        <button mat-button (click)="openConfirmationDialog.next()">
+          Delete account
+        </button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

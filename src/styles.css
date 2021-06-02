@@ -1,1 +1,115 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; /* You can add global styles to this file, and also import other style files */
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto,
+  "Helvetica Neue", sans-serif;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.space-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.flex-1 > * {
+  flex: 1;
+}
+
+.flex-h-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-columns {
+  flex-direction: column;
+  display: flex;
+}
+
+button.text-left {
+  text-align: left;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.mat-drawer-container {
+  background: floralwhite;
+}
+
+
+.medium-width {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.fit-content {
+  width: fit-content;
+}
+
+.child-spacing > * {
+  padding: 6px 0;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.with-border {
+  border: #c5c5c5 1px solid;
+  padding: 12px;
+  border-radius: 5px;
+}
+
+.with-margin {
+  margin: 12px;
+}
+
+.with-color-filling {
+  background: #ececec;
+}
+
+.primary {
+  color: rgb(64 80 181);
+}
+
+.header {
+  font-size: 26px;
+  font-family: "Baloo Paaji";
+}
+
+.full-height {
+  height: 100%;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}

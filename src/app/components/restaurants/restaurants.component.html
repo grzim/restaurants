@@ -1,0 +1,105 @@
+<div *ngIf="!((restaurants$ | async)?.length)" class="no-restaurants">
+  No restaurants found
+</div>
+<div class="show-my flex-1" *ngIf="!(isNotOwner$ | async)" >
+  <button mat-button *ngIf="(restaurants$ | async)?.length" (mousedown)="showOnlyMyRestaurants.emit()">Show only my restaurants</button>
+  <button mat-button *ngIf="(restaurants$ | async)?.length" (mousedown)="showAllRestaurants.emit()">Show all restaurants</button>
+  <button mat-button (click)="openCreateNewRestaurantModal.emit()">Add new restaurant</button>
+  <button mat-button (click)="showPendingReviews = !showPendingReviews">Show reviews with no response</button>
+
+</div>
+<div class="with-margin">
+  Filter by rating <input class="rating-filter" type="number" min="0" max="5" [(ngModel)]="minRating">
+</div>
+<div *ngIf="showPendingReviews" class="space-between with-margin">
+  <div *ngIf="(reviewsWithPendingResponses$ | async).length === 0">
+    All reviews have responses
+  </div>
+  <rr-review
+            *ngFor="let review of reviewsWithPendingResponses$ | async"
+            [review]="review"
+            (respond)="openResponseModalWithData.emit($event)"></rr-review>
+</div>
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel *ngFor="let restaurant of restaurants$ | async | withMinimumRating: minRating ; trackBy:restaurantIdentify"
+                       (click)="selectElement.emit(restaurant)">
+    <mat-expansion-panel-header class="panel-header">
+      <mat-panel-title class="title-panel">
+        <div class="space-between full-width">
+          <button mat-button mat-raised-button color="primary"
+                  [style.visibility]="(restaurant.isOwnedByUser || isAdmin$) ? 'visible' : 'hidden'"
+                  (click)="opeEditRestaurantModalWithData.emit({event: $event, restaurant: restaurant})">
+            Edit
+          </button>
+          <div class="self-center">
+            {{restaurant.name}}
+          </div>
+          <div>
+            <rr-stars
+              [rating]="restaurant.rating"></rr-stars>
+            <button [style.visibility]="restaurant.isOwnedByUser ? 'hidden' : 'visible'" mat-button
+                    (click)="openAddReviewModalWithData.emit({event: $event, restaurant: restaurant})">Add review
+            </button>
+
+          </div>
+        </div>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="example-element-description full-width" *ngIf="!(restaurant.reviews)?.length">
+      No reviews
+    </div>
+    <div class="example-element-description full-width" *ngIf="(restaurant.reviews)?.length">
+      <div class="flex">
+        <div>
+          <div class="header">Best:</div>
+          <div class="with-margin">
+            <rr-review [review]="restaurant.reviews?.sort(toHighestRated)[0]"
+                       (edit)="openEditReviewModalWithData.emit({
+                         review: $event,
+                         restaurant: restaurant})"
+                       (delete)="deleteReview.emit($event)"
+                       (respond)="openResponseModalWithData.emit($event)"></rr-review>
+          </div>
+        </div>
+        <div>
+          <div class="header">Worst:</div>
+          <div class="with-margin">
+            <rr-review [review]="restaurant.reviews?.sort(toLowestRated)[0]"
+                       (edit)="openEditReviewModalWithData.emit({
+                         review: $event,
+                         restaurant: restaurant})"
+                       (delete)="deleteReview.emit($event)"
+                       (respond)="openResponseModalWithData.emit($event)"></rr-review>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>
+            <span class="header">Latest:</span>
+
+          </div>
+          <div class="flex-wrap">
+                  <span class="with-margin"
+                        *ngFor="let review of restaurant.reviews?.sort(toSortedByLatest)| slice:0:limit">
+                      <rr-review [review]="review"
+                                 (edit)="openEditReviewModalWithData.emit({
+                                   review: $event,
+                                   restaurant: restaurant})"
+                                 (delete)="deleteReview.emit($event)"
+                                 (respond)="openResponseModalWithData.emit($event)"></rr-review>
+                  </span>
+          </div>
+          <button mat-button (click)="limit = limit + 5"
+                  *ngIf="(restaurant.reviews.length > limit)"
+          >Show more
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+

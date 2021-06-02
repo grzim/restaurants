@@ -1,0 +1,42 @@
+<mat-card *ngIf="review" class="fit-content child-spacing">
+  <div class="space-between">
+    <strong>Date of visit: </strong> {{review.dateOfVisit | date}}
+  </div>
+  <div class="space-between">
+    <strong>Name: </strong> {{review.authorName}}
+  </div>
+  <div class="space-between">
+    <strong>Rating: </strong>
+    <rr-stars [rating]="review.rating"></rr-stars>
+  </div>
+  <div *ngIf="review.text">
+    <strong class="primary">Comment: </strong>
+    <div class="with-border with-color-filling">{{review.text}}</div>
+  </div>
+  <div>
+
+  </div>
+  <div *ngIf="!hideResponse">
+    <div *ngIf="review.response">
+
+      <strong>Owner response: </strong>
+      <div class="with-border with-color-filling">{{review.response}}</div>
+    </div>
+    <button mat-raised-button class="mat-button mat-primary"
+           *ngIf="(canRespond$ | async) && !review.response"
+            (click)="respond.emit({reviewId: review.id})">
+      Respond
+    </button>
+    <button mat-raised-button class="mat-button mat-primary"
+            *ngIf="isAdmin$ | async"
+            (click)="delete.emit({id: review.id})">
+      Delete
+    </button>
+    <button mat-raised-button class="mat-button mat-primary"
+            *ngIf="isAdmin$ | async"
+            (click)="edit.emit(review)">
+      Edit
+    </button>
+  </div>
+</mat-card>
+

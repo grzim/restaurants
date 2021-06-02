@@ -1,0 +1,7 @@
+<h3>Edit review of {{data.restaurant?.name}}</h3>
+<rr-add-review
+  [review] = "data.review"
+  (submitReview)="submitData.next($event)"
+></rr-add-review>
+
+<button mat-button mat-dialog-close class="full-width">Cancel</button>

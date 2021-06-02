@@ -1,0 +1,33 @@
+<mat-table [dataSource]="users$" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="position">
+    <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+    <mat-cell *matCellDef="let user; let i = index" class="example-element-row" (click)="openUserEditModal.emit(user)">
+      {{i + 1}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+    <mat-cell *matCellDef="let user" class="example-element-row" (click)="openUserEditModal.emit(user)">
+      {{user.displayName}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef> email</mat-header-cell>
+    <mat-cell *matCellDef="let user" class="example-element-row" (click)="openUserEditModal.emit(user)">
+      {{user.email}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="type">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let user" class="example-element-row" (click)="openUserEditModal.emit(user)">
+      {{user.type}}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

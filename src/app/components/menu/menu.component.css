@@ -1,0 +1,9 @@
+.navigation-button {
+  display: block;
+  width: 100%;
+  height: 150px;
+}
+
+.is-active {
+  color: red;
+}

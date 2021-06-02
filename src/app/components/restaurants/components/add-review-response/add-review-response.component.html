@@ -1,0 +1,12 @@
+<div>
+  <h3>Response:</h3>
+  <mat-form-field class="full-width">
+    <mat-label>Comment:</mat-label>
+    <textarea matInput #responseElement> </textarea>
+  </mat-form-field>
+  <button mat-button class="full-width"
+          [disabled]="isValid(responseElement.value)"
+          (click)="submitResponse.emit(responseElement.value)">
+    Submit
+  </button>
+</div>

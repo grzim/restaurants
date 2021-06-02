@@ -1,0 +1,20 @@
+<div class="stars-container">
+  <div class="star-ratings"
+       (mouseleave)="overStar.emit(0)">
+    <div>
+      <div class="top"
+           [style.width]="(rating || 0) * 100 / 4 + '%'">
+        <span *ngFor="let star of range(numberOfStars)"
+              (mouseenter)="overStar.emit(star)"
+              (click)=" starSelected.emit(star)">★</span>
+      </div>
+      <div class="bottom">
+        <span
+          *ngFor="let star of range(numberOfStars)"
+          (mouseenter)="overStar.emit(star)"
+          (click)=starSelected.emit(star)
+        >★</span>
+      </div>
+    </div>
+  </div>
+</div>

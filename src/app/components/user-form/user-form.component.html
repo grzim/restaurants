@@ -1,0 +1,56 @@
+<div [formGroup]="form" class="flex-columns">
+  <div *ngIf="options.withPasswordConfirmation">
+    <!--  Type strong password with at least 8 character with one uppercase, one lowercase and one number. -->
+  </div>
+  <mat-form-field class="example-full-width" *ngIf="options.withName || options.showAll">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="displayName">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" *ngIf="options.withEmail || options.showAll">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email"/>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" *ngIf="options.withTypeSelection || options.showAll">
+    <mat-label>Type</mat-label>
+    <mat-select name="type" (change)="form.type = $event.target.value" formControlName="type">
+      <mat-option *ngFor="let type of types" [value]="type">{{type}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="options.withPassword || options.showAll" class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password"/>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="options.withPasswordConfirmation || options.showAll" class="example-full-width">
+    <mat-label>Confirm password</mat-label>
+    <input matInput type="password" formControlName="confirmPassword"/>
+  </mat-form-field>
+  <button mat-button class="mat-primary"
+          *ngIf="options.withPasswordConfirmation"
+          [disabled]="
+            (!form.dirty || !form.valid) ||
+            (form.controls['confirmPassword']?.value !== form.controls['password']?.value)
+          "
+          (click)="submitData.emit(form.value)">Submit</button>
+
+  <button mat-button class="mat-primary"
+          *ngIf="!options.withPasswordConfirmation"
+          [disabled]="
+            (!form.dirty || !form.valid)
+          "
+          (click)="submitData.emit(form.value)">Submit</button>
+</div>
+<div class="errors"
+     *ngIf="options.withPassword && form.get('password').invalid && (form.get('password').touched || form.get('password').dirty)">
+  <div *ngIf="form.get('password').hasError('required')">
+    password is required
+  </div>
+  <div class="error-text" *ngIf="options.withPassword && form.get('password').hasError('passwordStrength')">
+    {{form.get('password').errors['passwordStrength']}}
+  </div>
+</div>
+

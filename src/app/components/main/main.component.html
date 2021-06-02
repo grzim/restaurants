@@ -1,0 +1,36 @@
+<div class="container" [class.scale]="isOpen" *ngIf="!(isAuthenticating$ | async)">
+  <div class="progress-spinner" *ngIf="isFetching$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer *ngIf="(isUserLogged$ | async)" #drawer class="example-sidenav flex" mode="side" [opened]="isOpen">
+      <rr-fold-icon *ngIf="isUserLogged$ | async" (click)="isOpen = false" class="full-width"></rr-fold-icon>
+      <rr-menu></rr-menu>
+      <div class="full-width log-out-button">
+        <rr-log-out></rr-log-out>
+      </div>
+    </mat-drawer>
+    <div class="example-sidenav-content">
+      <rr-unfold-icon *ngIf="isUserLogged$ | async" [style.visibility]="isOpen ? 'hidden' : 'visible'"
+                      (click)="isOpen = true"></rr-unfold-icon>
+      <h1 [class.small]="isOpen" class="title">
+        {{(isUserLogged$ | async) ? "Hello " + ((user$ | async)?.displayName || "!") : "Restaurant Rating App" }}
+      </h1>
+      <div [class.full-height]="!moved" *ngIf="!(isUserLogged$ | async)">
+        <div class="unauthorized-menu-container" [class.moved]="moved">
+          <div [class.full-height]="!moved" class="flex-h-center" *ngFor="let routerLink of notAuthenticatedLinks">
+            <a [routerLink]=routerLink.path>
+              <button mat-fab color="primary" (click)="moved = true">{{routerLink.name}}</button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="router-wrapper">
+        <router-outlet></router-outlet>
+
+      </div>
+    </div>
+
+  </mat-drawer-container>
+
+</div>

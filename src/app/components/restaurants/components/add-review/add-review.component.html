@@ -1,0 +1,27 @@
+<div [formGroup]="reviewForm">
+  <mat-form-field class="full-width">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="authorName" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Choose a date of visit</mat-label>
+    <input matInput type="date" formControlName="dateOfVisit"/>
+<!--    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--    <mat-datepicker touchUi #picker></mat-datepicker>-->
+  </mat-form-field>
+
+  <div class="stars-wrapper">
+    <rr-stars [rating]="tempRating || reviewForm.value.rating"
+              (starSelected)="reviewForm.patchValue({rating: $event})"
+              (overStar)="tempRating = $event"></rr-stars>
+  </div>
+  <mat-form-field class="full-width">
+    <mat-label>Comment:</mat-label>
+    <textarea matInput formControlName="text"> </textarea>
+  </mat-form-field>
+
+  <button
+    [disabled]="!reviewForm.valid"
+    class="full-width" mat-button (click)="submitReview.emit(reviewForm.value)">Submit</button>
+</div>
